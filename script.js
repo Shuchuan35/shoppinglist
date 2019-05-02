@@ -1,17 +1,20 @@
 var button = document.getElementById("enter");
 var input = document.getElementById("userinput");
 var ul = document.querySelector("ul");
-
 var li = document.querySelectorAll("li");
 
-function toggleDoneClass(e) {
-	console.log(e.target.classList);
-	e.target.classList.toggle("done");
+
+function putLineThrough(e) {
+	// console.log(e.target);
+	if (e.target.className === "delete") {
+		e.target.parentElement.remove();
+	} else {
+		e.target.classList.toggle("done");
+	}
 }
 
-for(let i = 0; i< li.length; i++) {
-	// console.log(li[i]);
-	li[i].addEventListener('click', toggleDoneClass);
+for (let i = 0; i < li.length; i++) {
+	li[i].addEventListener('click', putLineThrough);
 }
 
 function inputLength() {
@@ -24,6 +27,7 @@ function createListElement() {
 	button.classList.add("delete");
 	button.appendChild(document.createTextNode("Delete"));
 	li.appendChild(document.createTextNode(input.value + " "));
+	li.addEventListener("click", putLineThrough);
 	li.appendChild(button);
 	ul.appendChild(li);
 	input.value = "";
